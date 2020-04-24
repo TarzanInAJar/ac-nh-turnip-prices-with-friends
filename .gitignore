@@ -5,3 +5,5 @@
 mvnw*
 
 target/
+
+application-secrets.properties
