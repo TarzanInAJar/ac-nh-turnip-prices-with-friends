@@ -2,10 +2,15 @@ package com.mytechuncle.acnh.services;
 
 import com.mytechuncle.acnh.models.TurnipWeek;
 import com.mytechuncle.acnh.models.ui.TurnipWeekLocalStorage;
+import com.mytechuncle.acnh.repositories.TurnipWeekRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TurnipDTOService {
+    @Autowired
+    TurnipWeekRepository repository;
+
     public static final int PRICES_BOUGHT_FOR_INDEX = 0;
     //public static final int PRICES_BOUGHT_FOR_INDEX = 1;
     public static final int PRICES_MON_AM = 2;
@@ -25,6 +30,9 @@ public class TurnipDTOService {
         if (localStorage.getPrices().length != 14) {
             //TODO handle
         }
+        if (week.getId() == null || !repository.existsById(week.getId())) {
+            //TODO Handle
+        }
 
         week.setFirstBuy(localStorage.isFirstBuy());
         week.setPreviousPattern(localStorage.getPreviousPattern());
@@ -43,5 +51,7 @@ public class TurnipDTOService {
         week.setFriPM(prices[PRICES_FRI_PM]);
         week.setSatAM(prices[PRICES_SAT_AM]);
         week.setSatPM(prices[PRICES_SAT_PM]);
+
+        repository.save(week);
     }
 }
