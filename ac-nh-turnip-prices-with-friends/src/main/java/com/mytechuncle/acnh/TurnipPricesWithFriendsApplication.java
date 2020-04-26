@@ -17,20 +17,21 @@ public class TurnipPricesWithFriendsApplication extends WebSecurityConfigurerAda
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
         http
                 .csrf(c -> c
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
+                .logout(l -> l
+                        .logoutSuccessUrl("/").permitAll()
+                )
                 .authorizeRequests(a -> a
-                        .antMatchers("/", "/error", "/webjars/**").permitAll()
-                        .anyRequest().authenticated()
+                        .antMatchers("/user", "/turnips").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
-                .oauth2Login();
-        // @formatter:on
+                .oauth2Login().defaultSuccessUrl("/", true);
     }
 
 }
