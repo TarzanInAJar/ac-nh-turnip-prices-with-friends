@@ -11,6 +11,8 @@ public class TurnipWeek {
     private ACNHUser user;
     private Integer year;
     private Integer week;
+    private boolean firstBuy;
+    private Integer previousPattern;
     private Integer boughtFor;
     private Integer monAM;
     private Integer monPM;
@@ -55,6 +57,22 @@ public class TurnipWeek {
 
     public void setUser(ACNHUser user) {
         this.user = user;
+    }
+
+    public boolean isFirstBuy() {
+        return firstBuy;
+    }
+
+    public void setFirstBuy(boolean firstBuy) {
+        this.firstBuy = firstBuy;
+    }
+
+    public Integer getPreviousPattern() {
+        return previousPattern;
+    }
+
+    public void setPreviousPattern(Integer previousPattern) {
+        this.previousPattern = previousPattern;
     }
 
     public Integer getBoughtFor() {

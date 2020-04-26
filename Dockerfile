@@ -7,7 +7,8 @@ COPY ac-nh-turnip-prices-with-friends-ui/ src/main/resources/static/
 RUN mvn clean package
 
 FROM openjdk:11
-COPY --from=build /usr/src/app/target/ac-nh-turnip-prices-with-friends-*.jar /usr/app/turnips-with-friends.jar  
-EXPOSE 8080  
-ENTRYPOINT ["java","-jar","/usr/app/turnips-with-friends.jar"]  
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app/target/ac-nh-turnip-prices-with-friends-*.jar ./turnips-with-friends.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","./turnips-with-friends.jar"]
 
