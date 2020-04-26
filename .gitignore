@@ -7,3 +7,7 @@ mvnw*
 target/
 
 application-secrets.properties
+
+# static gets replaced by gitmodule during Dockerfile build
+ac-nh-turnip-prices-with-friends/src/main/resources/static
+
