@@ -1,9 +1,8 @@
 FROM maven:3-jdk-11 AS build
 WORKDIR /usr/src/app
-COPY ac-nh-turnip-prices-with-friends/pom.xml .
+COPY ./pom.xml .
 RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "--fail-never"]
-COPY ac-nh-turnip-prices-with-friends/src src/
-COPY ac-nh-turnip-prices-with-friends-ui/ src/main/resources/static/
+COPY . .
 RUN mvn clean package
 
 FROM openjdk:11
