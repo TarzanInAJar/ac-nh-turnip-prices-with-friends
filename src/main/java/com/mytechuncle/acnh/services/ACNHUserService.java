@@ -1,6 +1,7 @@
 package com.mytechuncle.acnh.services;
 
 import com.mytechuncle.acnh.models.ACNHUser;
+import com.mytechuncle.acnh.models.TurnipUserGroup;
 import com.mytechuncle.acnh.models.TurnipWeek;
 import com.mytechuncle.acnh.repositories.ACNHUserRepository;
 import com.mytechuncle.acnh.repositories.TurnipWeekRepository;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ACNHUserService {
@@ -41,4 +44,9 @@ public class ACNHUserService {
         }
         return optionalTurnipWeek.get();
     }
+
+    public List<TurnipWeek> getGroupTurnipWeeks(TurnipUserGroup group, int year, int week) {
+        return group.getMembers().stream().map(member -> getTurnipWeek(member, year, week)).collect(Collectors.toList());
+    }
+
 }
