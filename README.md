@@ -32,7 +32,7 @@ docker build -t turnips-with-friends:latest . && docker run -it -p 8080:8080 tur
 
 ### Running for the first time
 
-At this, a working version of turnipprophet.io should be served on http://localhost:8080. Everything should be fine, but you'll notice when attempting to login with Google that you receive the following error:
+At this point, a working version of [ac-nh-turnip-prices-with-friends-ui](https://github.com/TarzanInAJar/ac-nh-turnip-prices-with-friends-ui) should be served on http://localhost:8080. Everything should be fine, but you'll notice when attempting to login with Google that you receive the following error:
 
 ![Error 401: invalid_client](docs/google_401.png)
 
