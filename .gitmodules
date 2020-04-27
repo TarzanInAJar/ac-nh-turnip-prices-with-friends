@@ -1,3 +1,6 @@
 [submodule "ac-nh-turnip-prices-with-friends-ui"]
 	path = ac-nh-turnip-prices-with-friends-ui
 	url = git@github.com:TarzanInAJar/ac-nh-turnip-prices-with-friends-ui.git
+[submodule "src/main/resources/static"]
+	path = src/main/resources/static
+	url = git@github.com:TarzanInAJar/ac-nh-turnip-prices-with-friends-ui.git
