@@ -15,6 +15,7 @@ docker build -t turnips-with-friends:latest . && docker run -it -p 8080:8080 tur
 ```
 
 This will work for "local mode", but attempting to login with Google will give you the following error:
+
 ![Error 401: invalid_client](docs/google_401.png)
 
 This is because in order to authenticate with Google, your application needs Google API credentials setup.
