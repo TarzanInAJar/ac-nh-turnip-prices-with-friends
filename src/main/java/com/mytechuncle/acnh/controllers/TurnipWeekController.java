@@ -84,7 +84,7 @@ public class TurnipWeekController {
     }
 
     @PutMapping("")
-    public ResponseEntity<Void> updateTurnipWeek(@AuthenticationPrincipal OAuth2User user, @RequestBody TurnipWeekLocalStorage localStorage) {
+    public ResponseEntity<Void> updateCurrentTurnipWeek(@AuthenticationPrincipal OAuth2User user, @RequestBody TurnipWeekLocalStorage localStorage) {
         ACNHUser acnhUser = userService.getUserFromOAuth(user);
         LocalDate localDate = LocalDate.now();
         TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
