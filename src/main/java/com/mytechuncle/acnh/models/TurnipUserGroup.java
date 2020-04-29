@@ -9,10 +9,15 @@ public class TurnipUserGroup {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
     @ManyToOne(optional = false)
     private ACNHUser admin;
     @ManyToMany
+    @JoinTable(
+            name = "group_users",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<ACNHUser> members;
 
     public Long getId() {

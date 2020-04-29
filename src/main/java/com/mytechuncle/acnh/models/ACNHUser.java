@@ -15,7 +15,7 @@ public class ACNHUser {
     private String email;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "members")
     private List<TurnipUserGroup> groups;
 
     public Long getId() {
