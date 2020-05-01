@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -52,7 +53,11 @@ public class GroupController {
     @GetMapping("")
     public ResponseEntity<List<TurnipUserGroupDTO>> getUserGroups(@AuthenticationPrincipal OAuth2User user) {
         ACNHUser acnhUser = userService.getUserFromOAuth(user);
-        return new ResponseEntity<>(acnhUser.getGroups().stream().map(TurnipUserGroupDTO::from).collect(Collectors.toList()), HttpStatus.OK);
+        if (acnhUser.getGroups() != null) {
+            return new ResponseEntity<>(acnhUser.getGroups().stream().map(TurnipUserGroupDTO::from).collect(Collectors.toList()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
+        }
     }
 
     @PostMapping("")
