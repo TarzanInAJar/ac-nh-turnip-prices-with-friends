@@ -7,6 +7,7 @@ import com.mytechuncle.acnh.models.dto.put.TurnipUserGroupUpdateDTO;
 import com.mytechuncle.acnh.repositories.ACNHUserRepository;
 import com.mytechuncle.acnh.repositories.TurnipUserGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -21,6 +22,9 @@ public class TurnipUserGroupService {
     @Autowired
     TurnipUserGroupRepository repository;
 
+    @Value("${global-group-name:global}")
+    String globalGroupName;
+
     public TurnipUserGroup createGroup(String name, ACNHUser admin) {
         if (repository.findByName(name).isPresent()) {
             throw new IllegalArgumentException("A group with name " + name + " already exists");
@@ -29,6 +33,14 @@ public class TurnipUserGroupService {
         turnipUserGroup.setAdmin(admin);
         turnipUserGroup.setName(name);
         return repository.save(turnipUserGroup);
+    }
+
+    public TurnipUserGroup getGlobalGroup(ACNHUser admin) {
+        Optional<TurnipUserGroup> global = repository.findByName(globalGroupName);
+        if (global.isPresent()) {
+            return global.get();
+        }
+        return createGroup(globalGroupName, admin);
     }
 
     public void updateGroup(TurnipUserGroupUpdateDTO updatedGroup) {

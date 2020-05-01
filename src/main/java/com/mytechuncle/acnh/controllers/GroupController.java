@@ -6,7 +6,6 @@ import com.mytechuncle.acnh.models.TurnipWeek;
 import com.mytechuncle.acnh.models.dto.TurnipUserGroupDTO;
 import com.mytechuncle.acnh.models.dto.TurnipWeekDTO;
 import com.mytechuncle.acnh.models.dto.put.TurnipUserGroupUpdateDTO;
-import com.mytechuncle.acnh.models.ui.TurnipWeekLocalStorage;
 import com.mytechuncle.acnh.repositories.ACNHUserRepository;
 import com.mytechuncle.acnh.repositories.TurnipUserGroupRepository;
 import com.mytechuncle.acnh.services.ACNHUserService;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
@@ -117,4 +115,14 @@ public class GroupController {
         List<TurnipWeek> groupWeeks = userService.getGroupTurnipWeeks(group, localDate.getYear(), weekNumber);
         return new ResponseEntity<>(groupWeeks.stream().map(TurnipWeekDTO::from).collect(Collectors.toList()), HttpStatus.OK);
     }
+
+    @GetMapping("/refreshGlobalGroup")
+    public ResponseEntity<Void> refreshGlobalGroup(@AuthenticationPrincipal OAuth2User user) {
+        ACNHUser acnhUser = userService.getUserFromOAuth(user);
+        TurnipUserGroup group = groupService.getGlobalGroup(acnhUser); // TODO this is bad, lazy, quick and dirty code to get something working up for my friends
+        group.setMembers(userRepository.findAll());
+        turnipUserGroupRepository.save(group);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
