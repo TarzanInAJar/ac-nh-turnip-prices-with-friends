@@ -26,7 +26,7 @@ public class OpenSecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutSuccessUrl("/").permitAll()
                 )
                 .authorizeRequests(a -> a
-                        .antMatchers("/user", "/turnips").authenticated()
+                        .antMatchers("/user/**", "/turnips/**", "/group/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(e -> e

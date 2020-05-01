@@ -1,9 +1,6 @@
 package com.mytechuncle.acnh.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -12,10 +9,11 @@ public class ACNHUser {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String email;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "members")
     private List<TurnipUserGroup> groups;
 
     public Long getId() {
